@@ -133,6 +133,12 @@
 	</repositories>
 
 	<dependencies>
+		<dependency>
+			<groupId>shuitian</groupId>
+			<artifactId>xwikiclient</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
 		<!-- activation -->
 		<dependency>
 			<groupId>javax.activation</groupId>
