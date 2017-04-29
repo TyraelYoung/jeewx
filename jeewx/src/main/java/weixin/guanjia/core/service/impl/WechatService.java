@@ -16,6 +16,8 @@ import org.jeecgframework.web.system.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import wang.tyrael.wiki.WikiBiz;
+import wang.tyrael.wiki.json.Page;
 import weixin.cms.dao.CmsAdDao;
 import weixin.guanjia.account.service.WeixinAccountServiceI;
 import weixin.guanjia.base.entity.Subscribe;
@@ -93,13 +95,23 @@ public class WechatService {
 			textMessage.setCreateTime(new Date().getTime());
 			textMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 			textMessage.setContent(getMainMenu());
+
 			// 将文本消息对象转换成xml字符串
 			respMessage = MessageUtil.textMessageToXml(textMessage);
+
 			//【微信触发类型】文本消息
 			if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
 				LogUtil.info("------------微信客户端发送请求------------------【微信触发类型】文本消息---");
-				respMessage = doTextResponse(content,toUserName,textMessage,bundler,
-						sys_accountId,respMessage,fromUserName,request,msgId,msgType);
+				String text = wikiMessage(content);
+				if(text == null){
+					textMessage.setContent("没有搜索到相关内容");
+					respMessage = MessageUtil.textMessageToXml(textMessage);
+				}else{
+					textMessage.setContent(text);
+					respMessage = MessageUtil.textMessageToXml(textMessage);
+				}
+//				respMessage = doTextResponse(content,toUserName,textMessage,bundler,
+//						sys_accountId,respMessage,fromUserName,request,msgId,msgType);
 			}
 			//【微信触发类型】图片消息
 			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
@@ -139,6 +151,12 @@ public class WechatService {
 			e.printStackTrace();
 		}
 		return respMessage;
+	}
+
+	private static String wikiMessage(String key){
+		Page page = WikiBiz.serchOne(key);
+		String content = page.getContent().substring(0, 100) + "...";
+		return String.format("%s 查看更多内容：%s", content, page.getLinks().get(0).getHref());
 	}
 
 
