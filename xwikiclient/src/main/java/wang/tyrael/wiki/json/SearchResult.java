@@ -12,10 +12,10 @@ public class SearchResult {
      * @return
      */
     public String getFirst(){
-        if(links == null || links.isEmpty()){
+        if(searchResults == null || searchResults.isEmpty()){
             return null;
         }else{
-            return links.get(0).getHref();
+            return searchResults.get(0).getFirst();
         }
 
     }

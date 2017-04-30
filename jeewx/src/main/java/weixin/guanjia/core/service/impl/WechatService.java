@@ -153,10 +153,11 @@ public class WechatService {
 		return respMessage;
 	}
 
-	private static String wikiMessage(String key){
+	private static String wikiMessage(String key) {
 		Page page = WikiBiz.serchOne(key);
-		String content = page.getContent().substring(0, 100) + "...";
-		return String.format("%s 查看更多内容：%s", content, page.getLinks().get(0).getHref());
+		String contentShort = page.getContentShort();
+
+		return String.format("%s 查看更多内容：%s", contentShort, page.getLinks().get(0).getHref());
 	}
 
 

@@ -15,6 +15,7 @@ public class WikiUrl {
     }
 
     public void readHost(){
+//        String resourceRoot = "../resources/";
         Properties p = PropertyUtil.read("wiki.properties");
         urlBase =  p.getProperty("wikiUrl");
     }

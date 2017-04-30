@@ -41,13 +41,13 @@ public class Page {
 
     private boolean hidden;
 
-    private int created;
+    public long created;
 
     private String creator;
 
     private String creatorName;
 
-    private int modified;
+    public long modified;
 
     private String modifier;
 
@@ -62,6 +62,16 @@ public class Page {
     private String objects;
 
     private String attachments;
+
+    public String getContentShort(){
+        String contentShort = null;
+        if (content.length() > 100) {
+            contentShort = content.substring(0, 100) + "...";
+        } else {
+            contentShort = content;
+        }
+        return contentShort;
+    }
 
     public void setLinks(List<Links> links){
         this.links = links;
@@ -183,12 +193,7 @@ public class Page {
     public boolean getHidden(){
         return this.hidden;
     }
-    public void setCreated(int created){
-        this.created = created;
-    }
-    public int getCreated(){
-        return this.created;
-    }
+
     public void setCreator(String creator){
         this.creator = creator;
     }
@@ -201,12 +206,7 @@ public class Page {
     public String getCreatorName(){
         return this.creatorName;
     }
-    public void setModified(int modified){
-        this.modified = modified;
-    }
-    public int getModified(){
-        return this.modified;
-    }
+
     public void setModifier(String modifier){
         this.modifier = modifier;
     }

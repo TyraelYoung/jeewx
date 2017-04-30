@@ -3,6 +3,7 @@ package wang.tyrael.wiki;
 import cn.tyrael.library.http.HttpDefault;
 import cn.tyrael.library.log.LogAdapter;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import okhttp3.Response;
 import wang.tyrael.wiki.json.Page;
 import wang.tyrael.wiki.json.SearchResult;
@@ -28,10 +29,10 @@ public class WikiBiz {
         }
         SearchResult searchResult = new Gson().fromJson(s, SearchResult.class);
 
-        String first = searchResult.getFirst();
+        String first = searchResult.getFirst() + "?media=json";
         if(first == null){
             return null;
-        }else{
+        }else {
             Response response1 = HttpDefault.get(first);
             String s1 = null;
             try {
@@ -40,7 +41,13 @@ public class WikiBiz {
                 LogAdapter.w(TAG, "网络失败");
             }
             //TODO 结果是不是一定是page？
-            Page page = new Gson().fromJson(s, Page.class);
+            Page page = null;
+            try {
+                page = new Gson().fromJson(s1, Page.class);
+            } catch (JsonSyntaxException jse) {
+                LogAdapter.e(TAG, jse);
+                LogAdapter.w(TAG, "解析失败：" + s1);
+            }
             return page;
         }
     }

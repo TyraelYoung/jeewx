@@ -17,7 +17,7 @@ public class PropertyUtil {
         Properties properties = new Properties();
         try
         {
-            InputStream inputStream = new FileInputStream(path);
+            InputStream inputStream = ClassLoader.getSystemResourceAsStream(path);
             properties.load(inputStream);
             inputStream.close(); //关闭流
         }

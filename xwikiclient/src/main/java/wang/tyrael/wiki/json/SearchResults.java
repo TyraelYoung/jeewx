@@ -17,7 +17,7 @@ public class SearchResults {
 
     private String pageName;
 
-    private int modified;
+    public long modified;
 
     private String author;
 
@@ -36,6 +36,19 @@ public class SearchResults {
     private double score;
 
     private String object;
+
+    /**
+     * 返回第一个的url
+     * @return
+     */
+    public String getFirst(){
+        if(links == null || links.isEmpty()){
+            return null;
+        }else{
+            return links.get(0).getHref();
+        }
+
+    }
 
     public void setLinks(List<Links> links){
         this.links = links;
@@ -85,12 +98,7 @@ public class SearchResults {
     public String getPageName(){
         return this.pageName;
     }
-    public void setModified(int modified){
-        this.modified = modified;
-    }
-    public int getModified(){
-        return this.modified;
-    }
+
     public void setAuthor(String author){
         this.author = author;
     }

@@ -52,7 +52,7 @@ public class FileUtil {
 	
 	public static List<String> readList(String file){
 		Scanner s = new Scanner(file);
-		List<String> list = new ArrayList<>();
+		List<String> list = new ArrayList<String>();
 		while(s.hasNext()){
 			list.add(s.nextLine());
 		}
