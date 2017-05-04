@@ -16,8 +16,10 @@ public class WikiUrl {
 
     public void readHost(){
 //        String resourceRoot = "../resources/";
-        Properties p = PropertyUtil.read("wiki.properties");
-        urlBase =  p.getProperty("wikiUrl");
+        //Properties p = PropertyUtil.read("wiki.properties", WikiUrl.class.getClassLoader());
+//        Properties p = PropertyUtil.read("wiki.properties");
+//        urlBase =  p.getProperty("wikiUrl");
+        urlBase = "http://kanchuan17.tyrael.wang";
     }
 
     public String serach(){
